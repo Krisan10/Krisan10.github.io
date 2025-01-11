@@ -6,8 +6,27 @@
   <title>Document</title>
 </head>
 <body>
-  <header>Welcome to my website</header>
-  <p>What a wonderful world!</p>
+  <h1>Welcome to My Website</h1>
+  <h2>My GitHub Repositories</h2>
+  <ul class="repo-list" id="repo-list">
+      <!-- Repositories will be loaded here -->
+  </ul>
+
+  <script>
+      const username = "Krisan10";
+      const repoList = document.getElementById("repo-list");
+
+      fetch(`https://api.github.com/users/${username}/repos`)
+          .then(response => response.json())
+          .then(data => {
+              data.forEach(repo => {
+                  const listItem = document.createElement("li");
+                  listItem.innerHTML = `<a href="${repo.html_url}" target="_blank">${repo.name}</a>`;
+                  repoList.appendChild(listItem);
+              });
+          })
+          .catch(error => console.error("Error fetching repositories:", error));
+  </script>
 </body>
 </html>
 </html>
